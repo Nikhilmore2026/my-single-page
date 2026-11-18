@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t local-web .
+          docker build -t my-single-page .
 
       - name: Run Container
         run: |
