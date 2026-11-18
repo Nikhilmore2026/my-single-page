@@ -1,0 +1,27 @@
+name: Single-page Site Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Stop existing container (if running)
+        run: |
+          docker stop local-web || true
+          docker rm local-web || true
+
+      - name: Build Docker Image
+        run: |
+          docker build -t local-web .
+
+      - name: Run Container
+        run: |
+          docker run -d -p 8080:80 --name local-web my-single-page
